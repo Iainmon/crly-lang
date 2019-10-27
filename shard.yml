@@ -1,0 +1,13 @@
+name: crly
+version: 0.1.0
+
+authors:
+  - Iain Moncrief <iainmoncrief@gmail.com>
+
+targets:
+  crly:
+    main: src/crly.cr
+
+crystal: 0.31.1
+
+license: MIT
