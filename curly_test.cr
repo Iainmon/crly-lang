@@ -13,7 +13,9 @@ class Person {
         print("Hello! My name is #{self.name}")
     }
 
-    
+    func doThis(callback) {
+        callback.call(self.name)
+    }
 
     func static.getPopulation() {
         return static.getPopulationValue()
@@ -38,6 +40,9 @@ for x in 1..5 {
 
 for person in people {
     person.greet()
+    person.doThis( (name : String) => {
+        print("Hi!")
+    })
 }
 
 people.first.greet(people.last)

@@ -30,8 +30,12 @@ def greet()
 print("Hello! My name is #{@name}")
 end
 
+def doThis(callback) 
+callback.call(@name)
+end
+
 def self.getPopulation() 
-return self.getPopulationValue
+return self.getPopulationValue()
 end
 
 private def self.getPopulationValue() 
@@ -53,6 +57,9 @@ end
 
 for person in people  do
 person.greet()
+person.doThis( ->(name : String) {
+print("Hi!")
+})
 end
 
 people.first.greet(people.last)

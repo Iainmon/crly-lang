@@ -86,6 +86,14 @@ module Crly
                 @open_curly_brackets += 1
             end
 
+            if callback_definition_line?(line)
+                line = line.sub(") => {", ") {")
+                line = line.reverse
+                line = line.sub("(", "(>-")
+                line = line.reverse
+                line = line.sub("||", "")
+            end
+
             if line == "}"
                 if @open_curly_brackets > 0
                     if @closed_curly_brackets_to_ignore == 0
@@ -143,6 +151,10 @@ module Crly
 
         private def function_definition_line?(line : String) : Bool
             line[0..11] == "static func " || line[0..19] == "private static func " || line[0..21] == "protected static func "
+        end
+
+        private def callback_definition_line?(line : String) Bool
+            line.includes?(") => {")
         end
 
         private def throw_if_line_has_bad_code(line : String)
