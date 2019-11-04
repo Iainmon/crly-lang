@@ -1,6 +1,9 @@
 // Expirementing with creating a standard library
 
-extension Array(T) {
+typealias DictionaryType = Bool | Int64 | Float64 | String | Array(DictionaryType)
+typealias Dictionary = Hash(String, DictionaryType)
+
+extension Array<T> {
     func length() : Int32 {
         return self.size
     }
@@ -17,6 +20,12 @@ extension String {
 
     func removeLast() {
         
+    }
+}
+
+extension Hash(K, V) {
+    func remove(key) {
+        delete(key)
     }
 }
 
@@ -73,9 +82,17 @@ extension Person {
 }
 
 let people = [] of Person
+let names = [
+    "Matthias",
+    "Drew",
+    "Remington",
+    "Michaela",
+    "Iain",
+    "Sophi"
+    ]
 
-for x in 1..5 {
-    people << Person.new "Clone of Iain"
+for name in names {
+    people << Person.new(name)
 }
 
 for let i = 0, i < people.length, i++ {
@@ -94,3 +111,5 @@ people.first.greet(people.last)
 print(Person.getPopulation())
 print(Person.population)
 
+// let people = [Person]
+// let peopleIndexedByName = [String => Person]

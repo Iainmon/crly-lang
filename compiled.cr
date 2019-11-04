@@ -17,6 +17,9 @@ end;
 #-------- STD --------
 # Expirementing with creating a standard library
 
+alias DictionaryType = Bool | Int64 | Float64 | String | Array(DictionaryType)
+alias Dictionary = Hash(String, DictionaryType)
+
 class Array(T) 
 def length() : Int32 
 return @size
@@ -37,6 +40,12 @@ def removeLast()
 end
 end
 
+class Hash(K, V) 
+def remove(key) 
+delete(key)
+end
+end
+
 require "colorize"
 
 class Log 
@@ -44,9 +53,17 @@ def self.print(value)
 print(value)
 end
 
+def self.log(value) 
+print(value.to_s.colorize.light_blue)
+end
+
 def self.error(value) 
 print(value.to_s.colorize.red)
 end
+end
+
+def vector(T) : Array(Array(T)) 
+return Array(Array(T))
 end
 
 # Testing the language
@@ -86,9 +103,17 @@ end
 end
 
 people = [] of Person
+names = [
+"Matthias",
+"Drew",
+"Remington",
+"Michaela",
+"Iain",
+"Sophi"
+]
 
-for x in 1..5  do
-people << Person.new "Clone of Iain"
+for name in names  do
+people << Person.new(name)
 end
 
 for i = 0, i < people.length, i += 1  do
@@ -107,3 +132,5 @@ people.first.greet(people.last)
 print(Person.getPopulation())
 print(Person.population)
 
+# let people = [Person]
+# let peopleIndexedByName = [String => Person]

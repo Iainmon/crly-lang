@@ -48,7 +48,7 @@ module Crly
                 line = line.sub("let ", "")
             end
 
-            if if_statement_line?(line) || class_definition_line?(line)
+            if if_statement_line?(line)
                 line = line.chomp('{')
                 @open_curly_brackets += 1
             end
@@ -62,6 +62,11 @@ module Crly
 
             if extension_definition_line?(line)
                 line = line.sub("extension", "class")
+            end
+
+            if class_definition_line?(line) || struct_definition_line?(line)
+                line = line.sub("<", "(")
+                line = line.sub(">", ")")
                 line = line.chomp('{')
                 @open_curly_brackets += 1
             end
@@ -150,6 +155,10 @@ module Crly
 
         private def class_definition_line?(line : String) : Bool
             line[0..5] == "class "
+        end
+
+        private def struct_definition_line?(line : String) : Bool
+            line[0..6] == "struct "
         end
 
         private def extension_definition_line?(line : String) : Bool
