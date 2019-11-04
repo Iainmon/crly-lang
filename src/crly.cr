@@ -1,5 +1,3 @@
-#crly~
-
 require "./crly/processor.cr"
 
 module Crly
