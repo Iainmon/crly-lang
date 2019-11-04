@@ -1,0 +1,6 @@
+version: 1.0
+shards:
+  forloop:
+    github: iainmon/forloop.cr
+    commit: 25ce62a5f61601d00308109c14907d40e1478863
+

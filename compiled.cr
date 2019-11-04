@@ -1,31 +1,62 @@
-#crly~
+#-------- STD --------
+def print(any);
+ puts any;
+ end;
+macro for(definition, condition, incrimentation, &block);
+{{definition}};
+while {{condition}};
+{{block.body}};
+{{incrimentation}};
+end;
+end;
+macro for(expr);
+({{expr.args.first.args.first}}).each do |{{expr.name.id}}|;
+{{expr.args.first.block.body}};
+end;
+end;
+#-------- STD --------
+class Person 
 
-def print(any);# {
-    puts "#{any}";end
+class_property population = 0
 
-class Person;# {
+property name : String
 
-	property age : Int16
+def initialize(name : String) 
+@name = name
+Person.population += 1
+end
 
-	def initialize(age : Int16);# {
-		@age = age
-   ;end
+def greet() 
+print("Hello! My name is #{@name}")
+end
 
-	def sayHello();# {
-		puts "Hey!"
-   ;end
+def self.getPopulation() 
+return self.getPopulationValue
+end
 
-	def act(& block : Int16 -> _);# {
-    	block.call @age
-   ;end;end
+private def self.getPopulationValue() 
+return self.population
+end
+end
 
-person = Person.new(1)
+class Person 
+def greet(personToGreet : Person) 
+print("Hey #{personToGreet.name}! My name is #{@name}.")
+end
+end
 
-if 5 < 6;# {
-    person.sayHello()
-;else;# {
-    print("Math is broken!");end
+people = [] of Person
 
-person.act do |age|
+for x in 1..5  do
+people << Person.new "Clone of Iain"
+end
 
-    print("I am #{age} years old!");end
+for person in people  do
+person.greet()
+end
+
+people.first.greet(people.last)
+
+print(Person.getPopulation())
+print(Person.population)
+

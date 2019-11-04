@@ -8,6 +8,10 @@ targets:
   crly:
     main: src/crly.cr
 
+dependencies:
+  forloop:
+    github: iainmon/forloop.cr
+
 crystal: 0.31.1
 
 license: MIT

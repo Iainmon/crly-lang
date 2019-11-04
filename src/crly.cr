@@ -9,7 +9,9 @@ module Crly
 
   contents = File.read(filename)
 
-  contents = self.process(contents)
+  processor = Processor.new filename
+
+  contents = processor.process(contents)
 
   outputFilename = ARGV[1] if ARGV.size > 1
 

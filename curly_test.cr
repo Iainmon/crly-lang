@@ -1,34 +1,47 @@
-#crly!
-
-func print(any) {
-    puts "#{any}"
-}
-
 class Person {
 
-	var age : Int16
+    static var population = 0
 
-	func initialize(age : Int16) {
-		this.age = age
+    var name : String
+
+    func initialize(name : String) {
+        self.name = name
+        Person.population++
     }
 
-	func sayHello() {
-		puts "Hey!"
+    func greet() {
+        print("Hello! My name is #{self.name}")
     }
 
-	func act(& block : Int16 -> _) {
-    	block.call this.age
+    
+
+    func static.getPopulation() {
+        return static.getPopulationValue()
+    }
+    
+    private func static.getPopulationValue() {
+        return static.population
     }
 }
 
-let person = Person.new(1)
-
-if 5 < 6 {
-    person.sayHello()
-} else {
-    print("Math is broken!")
+extension Person {
+    func greet(personToGreet : Person) {
+        print("Hey #{personToGreet.name}! My name is #{self.name}.")
+    }
 }
 
-person.act (age) => {
-    print("I am #{age}_ years old!")
+let people = [] of Person
+
+for x in 1..5 {
+    people << Person.new "Clone of Iain"
 }
+
+for person in people {
+    person.greet()
+}
+
+people.first.greet(people.last)
+
+print(Person.getPopulation())
+print(Person.population)
+
