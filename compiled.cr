@@ -15,6 +15,42 @@ macro for(expr);
 end;
 end;
 #-------- STD --------
+# Expirementing with creating a standard library
+
+class Array(T) 
+def length() : Int32 
+return @size
+end
+end
+
+class String 
+def replace(pattern, value) 
+gsub(pattern, value)
+end
+
+def eradicate(pattern : String) 
+gsub(pattern, "")
+end
+
+def removeLast() 
+
+end
+end
+
+require "colorize"
+
+class Log 
+def self.print(value) 
+print(value)
+end
+
+def self.error(value) 
+print(value.to_s.colorize.red)
+end
+end
+
+# Testing the language
+
 class Person 
 
 class_property population = 0
@@ -53,6 +89,10 @@ people = [] of Person
 
 for x in 1..5  do
 people << Person.new "Clone of Iain"
+end
+
+for i = 0, i < people.length, i += 1  do
+print(i)
 end
 
 for person in people  do

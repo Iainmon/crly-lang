@@ -26,10 +26,12 @@ module Crly
             processed_file += STD::STD_IDENTIFICATION_LINE
 
             input.each_line do |line|
-                @current_line_number.succ
+                @current_line_number += 1
                 line = line.strip
                 processed_file += "#{process_next_line(line)}\n"
             end
+
+            throw_line_error(input.lines.last, "Expected '}'") if @open_curly_brackets > 0
 
             return processed_file
         end
@@ -37,6 +39,10 @@ module Crly
         private def process_next_line(line : String) : String
 
             throw_if_line_has_bad_code(line)
+
+            if comment_line?(line)
+                line = line.sub("//", "#")
+            end
 
             if let_definition_line?(line)
                 line = line.sub("let ", "")
@@ -48,6 +54,7 @@ module Crly
             end
 
             if for_statement_line?(line)
+                line = line.sub(" let ", " ")
                 line = line.chomp('{')
                 @open_curly_brackets += 1
                 line += " do"
@@ -94,6 +101,14 @@ module Crly
                 line = line.sub("||", "")
             end
 
+            if import_line?(line)
+                line = line.sub("import", "require")
+            end
+
+            if type_alias_definition_line?(line)
+                line = line.sub("typealias", "alias")
+            end
+
             if line == "}"
                 if @open_curly_brackets > 0
                     if @closed_curly_brackets_to_ignore == 0
@@ -101,7 +116,7 @@ module Crly
                     else
                         @closed_curly_brackets_to_ignore.pred
                     end
-                    @open_curly_brackets.pred
+                    @open_curly_brackets -= 1
                 else
                     throw_line_error(line, "Unexpected '}'")
                 end
@@ -115,6 +130,10 @@ module Crly
             end
 
             return line
+        end
+
+        private def comment_line?(line : String) : Bool
+            line[0..1] == "//"
         end
 
         private def let_definition_line?(line : String) : Bool
@@ -155,6 +174,14 @@ module Crly
 
         private def callback_definition_line?(line : String) Bool
             line.includes?(") => {")
+        end
+
+        private def type_alias_definition_line?(line : String) Bool
+            line[0..9] == "typealias "
+        end
+
+        private def import_line?(line : String) Bool
+            line[0..6] == "import "
         end
 
         private def throw_if_line_has_bad_code(line : String)
