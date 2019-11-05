@@ -1,0 +1,5 @@
+extension Hash(K, V) {
+    func remove(key) {
+        delete(key)
+    }
+}

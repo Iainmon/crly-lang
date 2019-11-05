@@ -1,0 +1,2 @@
+typealias DictionaryType = Bool | Int64 | Float64 | String | Array(DictionaryType)
+typealias Dictionary = Hash(String, DictionaryType)

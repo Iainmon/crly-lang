@@ -1,22 +1,40 @@
 require "./crly/processor.cr"
+require "phreak"
 
 module Crly
   VERSION = "0.1.0"
 
-  raise "No input file given!" if ARGV.size < 1
+  DEFAULT_COMPILER_OPTIONS = {
+    "std" => true
+  }
 
-  filename = ARGV[0]
+  def self.compile_file(filename : String, options = DEFAULT_COMPILER_OPTIONS)
 
-  raise "The file '#{filename}' does not exist." unless File.exists?(filename)
+    raise "Error opening file! The file '#{filename}' does not exist." unless File.exists?(filename)
 
-  contents = File.read(filename)
+    contents = File.read(filename)
+  
+    processor = Processor.new filename
+  
+    contents = processor.process(contents)
+  
+    outputFilename = ARGV[1] if ARGV.size > 1
+  
+    File.write(outputFilename || filename.gsub(".soph", ".cr").underscore, contents)
 
-  processor = Processor.new filename
+  end
 
-  contents = processor.process(contents)
 
-  outputFilename = ARGV[1] if ARGV.size > 1
+  Phreak.parse! do |root|
+    root.default do
+      puts "No file provided."
+    end
+  
+    root.unrecognized_args do |arg|
+      Crly.compile_file(arg)
+    end
+  end
 
-  File.write(outputFilename || "compiled.cr", contents)
+
   
 end

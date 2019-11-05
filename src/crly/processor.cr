@@ -19,11 +19,8 @@ module Crly
 
         def process(input : String) : String
 
-            processed_file = STD::STD_IDENTIFICATION_LINE
-            processed_file += STD::PRINT_MACRO
-            processed_file += STD::FOR_LOOP_MACRO
-            processed_file += STD::FOR_IN_LOOP_MACRO
-            processed_file += STD::STD_IDENTIFICATION_LINE
+            processed_file = ""
+            processed_file += import_standard_library
 
             input.each_line do |line|
                 @current_line_number += 1
@@ -34,6 +31,38 @@ module Crly
             throw_line_error(input.lines.last, "Expected '}'") if @open_curly_brackets > 0
 
             return processed_file
+        end
+
+        private def import_standard_library() : String
+
+            std_to_compile = ""
+            
+            std_to_compile += STD::DICTIONARY_ALIAS
+            std_to_compile += STD::PRINT
+            std_to_compile += STD::LOG
+            std_to_compile += STD::STRING_EXTENTIONS
+            std_to_compile += STD::ARRAY_EXTENTIONS
+            std_to_compile += STD::HASH_EXTENTIONS
+
+
+            processed_std = ""
+            processed_std += STD::STD_IDENTIFICATION_LINE
+            processed_std += STD::FOR_LOOP_MACRO
+            processed_std += STD::FOR_IN_LOOP_MACRO
+
+            std_to_compile.each_line do |line|
+                @current_line_number += 1
+                line = line.strip
+                processed_std += "#{process_next_line(line)}\n"
+            end
+
+            processed_std += STD::STD_IDENTIFICATION_LINE
+
+            @current_line_number = 0
+            @open_curly_brackets = 0
+            @closed_curly_brackets_to_ignore = 0
+
+            return processed_std
         end
 
         private def process_next_line(line : String) : String

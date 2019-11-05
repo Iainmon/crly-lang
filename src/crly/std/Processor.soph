@@ -1,0 +1,17 @@
+func isArrayLine(line : String) : Bool {
+
+}
+
+func convertArrayInitializer(expression : String) : String {
+
+    let innerExpression = expression.eradicate(/\[|\]/)
+
+    let subArrayExpressions = innerExpression.find(/\[.+\]/)
+
+    if subArrayExpressions.isEmpty() {
+        return innerExpression
+    }
+
+    return "Array(#{convertArrayInitializer(innerExpression)}).new"
+
+}

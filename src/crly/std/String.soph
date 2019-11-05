@@ -1,0 +1,57 @@
+extension String {
+    func replace(pattern, value) {
+        return gsub(pattern, value)
+    }
+
+    func eradicate(pattern) {
+        return gsub(pattern, "")
+    }
+
+    func words() {
+        let words = [] of String
+
+        for scan in scan(/\w+/) {
+            words << scan[0]
+        }
+
+        return words
+    }
+
+    func find(regex) {
+        let occurances = [] of String
+
+        for occurance in scan(regex) {
+            occurances << occurance[0]
+        }
+
+        return occurances
+    }
+
+    func has(pattern) : Bool {
+        return find(pattern).length() > 0
+    }
+
+    func findFirst(regex : Regex) : String | Nil {
+        let occurances = find(regex)
+
+        if occurances.length() > 0 {
+            return occurances.first()
+        }
+
+        return nil
+    }
+
+    func findLast(regex : Regex) : String | Nil {
+        let occurances = find(regex)
+        
+        if occurances.length() > 0 {
+            return occurances.last()
+        }
+
+        return nil
+    }
+
+    func chop(prefix) {
+        return sub(prefix, "")
+    }
+}

@@ -1,0 +1,9 @@
+extension Array<T> {
+    func length() : Int32 {
+        return self.size
+    }
+
+    func isEmpty() : Bool {
+        return empty?()
+    }
+}

@@ -1,0 +1,9 @@
+// func invokeCallback(callback : (Int))
+
+func printInt(input : Int) {
+    print(input)
+}
+
+let input = 1_u8
+
+printInt(input)

@@ -1,0 +1,7 @@
+
+let sentance = "Hello my name is Iain Moncrief."
+
+let words = sentance.words()
+
+print(sentance)
+print(words)

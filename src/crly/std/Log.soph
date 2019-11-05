@@ -1,0 +1,15 @@
+import "colorize"
+
+class Log {
+    static func print(value) {
+        print(value)
+    }
+    
+    static func log(value) {
+        print(value.to_s.colorize.light_blue)
+    }
+
+    static func error(value) {
+        print(value.to_s.colorize.red)
+    }
+}

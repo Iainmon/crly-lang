@@ -1,0 +1,24 @@
+func processArrayInitializerExpression(expression : String) : String {
+
+    let innerExpression = expression.chop('[').rchop(']')
+
+    let containsSubExpression = innerExpression.has(/\[+[A-Z]{1}\w+\]+/)
+
+    if containsSubExpression {
+        return "Array(#{convertArrayInitializer(innerExpression)})"
+    }
+    return "Array(#{innerExpression})"
+}
+
+let line = "let stringArray = [[String]]"
+
+print(line)
+
+if line.has(/\[+[A-Z]{1}\w+\]+/) {
+    let expression = line.find(/\[+[A-Z]{1}\w+\]+/).first()
+    let convertedExpression = processArrayInitializerExpression(expression)
+    
+    let convertedLine = line.replace(expression, "#{convertedExpression}.new")
+
+    print(convertedLine)
+}
