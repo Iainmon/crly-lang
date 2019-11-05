@@ -113,3 +113,5 @@ print(Person.population)
 
 // let people = [Person]
 // let peopleIndexedByName = [String => Person]
+// let person = Person("Fistname Lastname")
+// for k, v in myHash { ...

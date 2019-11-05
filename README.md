@@ -1,27 +1,42 @@
-# crly
+# Crly Programming Language
 
-TODO: Write a description here
+Not wanting to write a full-blown compiler, I decided to use the Crystal Language as my implementation language. I also, at the time of creating this, did not want to write a bunch of code editor syntax hilighting for Crly, so it looks a lot like Swift (which I do like a lot).
 
-## Installation
+```swift
+class Person {
 
-TODO: Write installation instructions here
+    static var population = 0
 
-## Usage
+    var name : String
 
-TODO: Write usage instructions here
+    func initialize(name : String) {
+        self.name = name
+        Person.population++
+    }
 
-## Development
+    func greet() {
+        print("Hello! My name is #{self.name}")
+    }
+}
 
-TODO: Write development instructions here
+let people = [] of Person
+let names = [
+    "Matthias",
+    "Drew",
+    "Remington",
+    "Michaela",
+    "Iain",
+    "Sophi"
+    ]
 
-## Contributing
+for name in names {
+    people << Person.new(name)
+}
 
-1. Fork it (<https://github.com/your-github-user/crly/fork>)
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+for person in people {
+    person.greet()
+}
 
-## Contributors
+print(Person.population)
 
-- [Iain Moncrief](https://github.com/your-github-user) - creator and maintainer
+```

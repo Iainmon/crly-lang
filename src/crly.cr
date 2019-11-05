@@ -7,6 +7,8 @@ module Crly
 
   filename = ARGV[0]
 
+  raise "The file '#{filename}' does not exist." unless File.exists?(filename)
+
   contents = File.read(filename)
 
   processor = Processor.new filename
