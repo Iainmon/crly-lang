@@ -1,0 +1,15 @@
+
+let importstatements = [
+    "import \"mylibrary\"",
+    "import \".\/myfile.soph\"",
+    "import colorize"
+]
+
+for statement in importstatements {
+    print(statement)
+    print(statement.split(" ").last)
+
+    statement = statement.strip("\"".to_c)
+    statement = statement.strip("'".to_c)
+
+}

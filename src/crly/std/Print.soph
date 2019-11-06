@@ -1,3 +1,6 @@
 func print(any) {
     puts any
 }
+func readLine() {
+    return read_line
+}

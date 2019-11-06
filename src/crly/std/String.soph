@@ -21,7 +21,7 @@ extension String {
         let occurances = [] of String
 
         for occurance in scan(regex) {
-            occurances << occurance[0]
+            occurances << occurance[0].to_s
         }
 
         return occurances

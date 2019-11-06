@@ -1,0 +1,5 @@
+
+print("Enter an input.")
+let input = readLine()
+print("You inputed #{input}.")
+
