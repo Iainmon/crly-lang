@@ -4,11 +4,11 @@ shards:
     github: schovi/baked_file_system
     version: 0.9.8
 
+  commander:
+    github: mrrooijen/commander
+    version: 0.3.3
+
   forloop:
     github: iainmon/forloop.cr
     commit: 25ce62a5f61601d00308109c14907d40e1478863
-
-  phreak:
-    github: shinzlet/phreak
-    commit: 33def6add07757ca05117f7ca6b91fbe761b40b8
 

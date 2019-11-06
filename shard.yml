@@ -11,8 +11,9 @@ targets:
 dependencies:
   forloop:
     github: iainmon/forloop.cr
-  phreak:
-    github: shinzlet/phreak
+  commander:
+    github: mrrooijen/commander
+    version: ~> 0.3.3
   baked_file_system:
     github: schovi/baked_file_system
     version: 0.9.8

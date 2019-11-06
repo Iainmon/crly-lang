@@ -17,10 +17,10 @@ module Crly
             @file_name = file_name
         end
 
-        def process(input : String) : String
+        def process(input : String, import_std = true) : String
 
             processed_file = ""
-            processed_file += import_standard_library
+            processed_file += import_standard_library if import_std
 
             input.each_line do |line|
                 @current_line_number += 1
