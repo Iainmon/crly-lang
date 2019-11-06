@@ -1,9 +1,7 @@
-// func invokeCallback(callback : (Int))
-
-func printInt(input : Int) {
-    print(input)
+func invokeCallback(callback) {
+    callback.call()
 }
 
-let input = 1_u8
-
-printInt(input)
+invokeCallback( () => {
+    print("Hey!")
+})
