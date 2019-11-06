@@ -1,0 +1,57 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "shards",
+            "args": [
+                "build"
+            ],
+            "group": "build"
+        },
+        {
+            "label": "Install",
+            "type": "shell",
+            "command": "cp",
+            "args": [
+                "bin/crly",
+                "/usr/local/bin/crly"
+            ]
+        },
+        {
+            "label": "Rebuild and Install",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Build",
+                "Install"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Compile",
+            "type": "shell",
+            "command": "crly",
+            "args": ["${file}"]
+        },
+        {
+            "label": "Display Compiled",
+            "type": "shell",
+            "command": "crystal",
+            "args": ["tool", "format", "${file}.cr", "&&", "cat", "${file}.cr"],
+            "dependsOn": ["Compile"]
+        },
+        {
+            "label": "Run",
+            "type": "shell",
+            "command": "crly",
+            "args": ["run", "${file}"]
+        }
+
+    ]
+}
