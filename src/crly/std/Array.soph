@@ -6,4 +6,8 @@ extension Array<T> {
     func isEmpty() : Bool {
         return empty?()
     }
+
+    func uniques() {
+        return uniq
+    }
 }

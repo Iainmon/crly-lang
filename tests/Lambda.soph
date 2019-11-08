@@ -1,0 +1,35 @@
+func invokeCallback(&) {
+    yield("Hello from callback!")
+}
+
+typealias Lambda = Proc
+typealias NilLambda = Proc(Nil)
+
+func invokeLambda(lambda : Lambda) {
+    lambda.call()
+}
+
+// Creating lambda from block
+let lambdaToCall = lambda => { input in
+    print(input)
+}
+
+// Passes lambda to function
+invokeLambda(lambdaToCall)
+// Unpacks the block, and passes it to the function
+invokeCallback(&lambdaToCall)
+
+
+
+
+
+
+class Server {
+    func initialize(&) {
+        yield self.context
+    }
+}
+
+let server = Server.new { context in
+    context.doSomething()
+}

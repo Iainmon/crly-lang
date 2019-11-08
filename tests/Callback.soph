@@ -1,24 +1,7 @@
-func invokeLambda(lambda) {
-    lambda.call()
+func invokeCallback(&) {
+    yield("Hello from callback!")
 }
 
-func invokeIntLambda(lambda) {
-    lambda.call(1)
+invokeCallback() { input in
+    print(input)
 }
-
-func invokeCallback(&block) {
-    yield
-}
-
-invokeLambda( () => {
-    print("Hey!")
-})
-
-invokeIntLambda( (number : Int32) => {
-    print("I got the number #{number}.")
-})
-
-invokeCallback() do
-    print("Callback called!")
-end
-

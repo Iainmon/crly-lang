@@ -1,0 +1,56 @@
+func isImportStatement(line : String) : Bool {
+    return line[0..6] == "import "
+}
+
+func processImportStatement(line) : String {
+
+    let importName = line.split(" ").last
+
+    let quoteCharacter = [importName.characters.first, importName.characters.last].uniques.first || nil
+
+    if quoteCharacter == Char.doubleQuote {
+        return line
+    }
+    
+    let importMustExist = false
+
+    if quoteCharacter == '\'' {
+        // Importing a relative file from a sub folder. Example: import 'helpers/MyHelperClass'
+        importName = importName.eradicate('\'')
+        importMustExist = true
+    }
+
+    let currentDirectory = "/home/iainmoncrief/Documents/Github/crly/tests/ImportProcessor.soph" // <-- Testing
+    let currentDirectory = File.dirname(currentDirectory)
+    
+    // Importing a file inside the same directory, or a shard dependency. Examples: import MyHelperClass, or import Colorize
+
+    let possibleReletiveImportFilePath = "#{currentDirectory}/#{importName}.soph"
+
+    if File.exists?(possibleReletiveImportFilePath) {
+        return "import \"./#{importName.underscore}.soph.cr\""
+    }
+
+    if importMustExist {
+        // Return an error.
+        return "Error!"
+    }
+
+    return "import \"#{importName.underscore}\""
+
+}
+
+let importstatements = [
+    "import \"mylibrary\"",
+    "import \".\/myfile.soph\"",
+    "import Colorize",
+    "import 'String'",
+    "import String"
+]
+
+for statement in importstatements {
+    if isImportStatement(statement) {
+        print(statement)
+        print(processImportStatement(statement))
+    }
+}

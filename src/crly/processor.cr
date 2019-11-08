@@ -41,6 +41,7 @@ module Crly
             std_to_compile += STD::PRINT
             std_to_compile += STD::LOG
             std_to_compile += STD::STRING_EXTENTIONS
+            std_to_compile += STD::CHAR_EXTENTIONS
             std_to_compile += STD::ARRAY_EXTENTIONS
             std_to_compile += STD::HASH_EXTENTIONS
 
@@ -128,11 +129,10 @@ module Crly
             end
 
             if callback_definition_line?(line)
-                line = line.sub(") => {", ") {")
+                line = line.sub("{", "{ |")
                 line = line.reverse
-                line = line.sub("(", "(>-")
+                line = line.sub("ni ", "|")
                 line = line.reverse
-                line = line.sub("||", "")
             end
 
             if import_line?(line)
@@ -167,7 +167,7 @@ module Crly
         end
 
         private def comment_line?(line : String) : Bool
-            line[0..1] == "//"
+            line.scan("//").size > 0
         end
 
         private def let_definition_line?(line : String) : Bool
@@ -211,7 +211,7 @@ module Crly
         end
 
         private def callback_definition_line?(line : String) Bool
-            line.includes?(") => {")
+            line[-3..-1] == " in"
         end
 
         private def type_alias_definition_line?(line : String) Bool

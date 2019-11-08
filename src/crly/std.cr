@@ -15,6 +15,7 @@ module Crly
 
         LOG = FileStorage.get("Log.soph").gets_to_end + "\n"
 
+        CHAR_EXTENTIONS = FileStorage.get("Character.soph").gets_to_end + "\n"
         STRING_EXTENTIONS = FileStorage.get("String.soph").gets_to_end + "\n"
         ARRAY_EXTENTIONS = FileStorage.get("Array.soph").gets_to_end + "\n"
         HASH_EXTENTIONS = FileStorage.get("Hash.soph").gets_to_end + "\n"

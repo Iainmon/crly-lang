@@ -18,12 +18,16 @@ module Crly
 
     contents = processor.process(contents, options.import_std)
 
-    output_file_name = options.output_file_name
-    output_file_name = filename.gsub(".soph", ".soph.cr").underscore if output_file_name.empty?
+    output_file_name = File.basename(options.output_file_name)
+    output_file_name = File.basename(filename).gsub(".soph", ".soph.cr").underscore if output_file_name.empty?
 
-    File.write(output_file_name, contents)
+    output_file_directory = File.dirname(filename) + "/" || "./"
 
-    return output_file_name
+    output_file = "#{output_file_directory}#{output_file_name}"
+
+    File.write(output_file, contents)
+
+    return output_file
   end
 
 

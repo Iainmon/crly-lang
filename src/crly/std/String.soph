@@ -1,4 +1,9 @@
 extension String {
+
+    func characters() {
+        return chars
+    }
+
     func replace(pattern, value) {
         return gsub(pattern, value)
     }
